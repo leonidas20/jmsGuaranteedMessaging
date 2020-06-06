@@ -26,9 +26,8 @@ public class MessageConsumer {
 			JMSConsumer consumer = jmsContext.createConsumer(requestQueue);
 			TextMessage message = (TextMessage) consumer.receive();
 			System.out.println(message.getText());
+		//	message.acknowledge();
 
 		}
-
 	}
-
 }
