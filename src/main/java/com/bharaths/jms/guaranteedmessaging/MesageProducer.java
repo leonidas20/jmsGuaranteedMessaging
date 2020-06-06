@@ -17,10 +17,15 @@ public class MesageProducer {
 		Queue requestQueue = (Queue) initialContext.lookup("queue/requestQueue");
 		
 		try(ActiveMQConnectionFactory cf = new ActiveMQConnectionFactory();
-				JMSContext jmsContext = cf.createContext(JMSContext.DUPS_OK_ACKNOWLEDGE);) {
+				JMSContext jmsContext = cf.createContext(JMSContext.SESSION_TRANSACTED);) {
 			
 			JMSProducer producer = jmsContext.createProducer();
 			producer.send(requestQueue, "Message 1");
+			jmsContext.commit();
+			//up to here the transaction will be commited . The rest part will be rollbacked.
+			producer.send(requestQueue, "Message 2");
+			//jmsContext.rollback();
+
 		}
 	}
 }
