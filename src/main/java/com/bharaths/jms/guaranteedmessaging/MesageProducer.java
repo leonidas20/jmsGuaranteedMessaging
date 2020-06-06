@@ -21,10 +21,11 @@ public class MesageProducer {
 			
 			JMSProducer producer = jmsContext.createProducer();
 			producer.send(requestQueue, "Message 1");
-			jmsContext.commit();
 			//up to here the transaction will be commited . The rest part will be rollbacked.
 			producer.send(requestQueue, "Message 2");
 			//jmsContext.rollback();
+			jmsContext.commit();
+
 
 		}
 	}
